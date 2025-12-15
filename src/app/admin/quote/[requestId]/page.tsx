@@ -14,9 +14,12 @@ import {
   Spin,
   App,
 } from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  MinusCircleOutlined,
+  PlusOutlined,
+  LeftOutlined,
+} from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { api } from "@/trpc/react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
@@ -117,6 +120,13 @@ export default function AdminQuotationEditorPage({
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 0" }}>
+      <Button
+        icon={<LeftOutlined />}
+        onClick={() => router.push("/admin")}
+        style={{ marginBottom: 16 }}
+      >
+        Back to Dashboard
+      </Button>
       <Space orientation="vertical" size="large" style={{ width: "100%" }}>
         <Card title="Request Details">
           <Descriptions column={2}>
@@ -237,15 +247,24 @@ export default function AdminQuotationEditorPage({
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                block
-                loading={createQuotationMutation.isPending}
-              >
-                {existingQuotation ? "Update Quotation" : "Send Quotation"}
-              </Button>
+              <div style={{ display: "flex", gap: 16 }}>
+                <Button
+                  size="large"
+                  onClick={() => router.push("/admin")}
+                  style={{ flex: 1 }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  loading={createQuotationMutation.isPending}
+                  style={{ flex: 1 }}
+                >
+                  {existingQuotation ? "Update Quotation" : "Send Quotation"}
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </Card>
