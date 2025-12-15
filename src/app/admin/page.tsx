@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Typography, Table, Tag, Button, Space, Spin } from 'antd';
+import { Typography, Table, Button, Space, Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 import { api } from '@/trpc/react';
 import type { RouterOutputs } from '@/trpc/react';
+import { StatusTag } from '@/components/StatusTag';
 
 const { Title } = Typography;
 
@@ -36,10 +37,7 @@ export default function AdminDashboardPage() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string) => {
-        const color = status === 'Pending' ? 'orange' : 'green';
-        return <Tag color={color}>{status.toUpperCase()}</Tag>;
-      },
+      render: (status: string) => <StatusTag status={status} />,
       filters: [
         { text: 'Pending', value: 'Pending' },
         { text: 'Replied', value: 'Replied' },

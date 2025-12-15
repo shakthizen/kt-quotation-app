@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Typography, Table, Tag, Button, Modal, Spin } from "antd";
+import { Typography, Table, Button, Modal, Spin } from "antd";
 import { api } from "@/trpc/react";
 import { QuotationDetails } from "@/components/QuotationDetails";
+import { StatusTag } from "@/components/StatusTag";
 
 const { Title } = Typography;
 
@@ -50,10 +51,7 @@ export default function UserQuotationsPage() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status: string) => {
-        const color = status === "Pending" ? "orange" : "green";
-        return <Tag color={color}>{status.toUpperCase()}</Tag>;
-      },
+      render: (status: string) => <StatusTag status={status} />,
     },
     {
       title: "Actions",
