@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Request {
+    id          String      @id @default(uuid())
+    name        String
+    email       String
+    description String
+    status      String      @default("Pending") // "Pending" | "Replied"
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+    quotation   Quotation?
+}
+
+model Quotation {
+    id          String   @id @default(uuid())
+    requestId   String   @unique
+    request     Request  @relation(fields: [requestId], references: [id])
+    totalAmount Float
+    notes       String   // HTML rich text
+    adminId     String
+    items       QuotationItem[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model QuotationItem {
+    id          String    @id @default(uuid())
+    quotationId String
+    quotation   Quotation @relation(fields: [quotationId], references: [id])
+    description String
+    quantity    Int
+    unitPrice   Float
+    amount      Float
+}
