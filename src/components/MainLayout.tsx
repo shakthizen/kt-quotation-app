@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Menu, Spin } from "antd";
+import { Layout, Menu, Spin, type MenuProps } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import {
   HomeOutlined,
@@ -23,7 +23,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return "request";
   };
 
-  const navItems = [
+  const navItems: MenuProps["items"] = [
     {
       key: "request",
       icon: <HomeOutlined />,
