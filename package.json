@@ -18,7 +18,7 @@
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "start": "next start",
-    "test": "vitest",
+    "test": "SKIP_ENV_VALIDATION=1 vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
